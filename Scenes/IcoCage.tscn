@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://bpblql4rjalr5"]
+
+[ext_resource type="PackedScene" uid="uid://cx237vjv7apvl" path="res://Model/IcoCage.glb" id="1_hwwv4"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_hwwv4"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_835fc"]
+noise = SubResource("FastNoiseLite_hwwv4")
+as_normal_map = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_835fc"]
+metallic = 0.94
+metallic_specular = 0.99
+roughness = 0.08
+normal_enabled = true
+normal_texture = SubResource("NoiseTexture2D_835fc")
+
+[node name="IcoCage" instance=ExtResource("1_hwwv4")]
+
+[node name="Icosphere" parent="." index="0"]
+layers = 3
+material_override = SubResource("StandardMaterial3D_835fc")

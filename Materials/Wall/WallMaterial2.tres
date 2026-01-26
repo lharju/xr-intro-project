@@ -1,0 +1,12 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://lhik34kkxg85"]
+
+[ext_resource type="Texture2D" uid="uid://c17d818utrd76" path="res://Materials/Wall/tile.png" id="1_abgp2"]
+[ext_resource type="Texture2D" uid="uid://dakh2w4uiujui" path="res://Materials/Wall/tile-normal.png" id="2_d3f0o"]
+
+[resource]
+albedo_texture = ExtResource("1_abgp2")
+metallic = 0.65
+roughness = 0.23
+normal_enabled = true
+normal_texture = ExtResource("2_d3f0o")
+uv1_scale = Vector3(4, 4, 4)

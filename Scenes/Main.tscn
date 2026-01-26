@@ -1,0 +1,184 @@
+[gd_scene load_steps=27 format=3 uid="uid://bp2n8hvvbuf36"]
+
+[ext_resource type="Material" uid="uid://bdeqx8k58axy5" path="res://Materials/Sky/SkyMat.tres" id="1_50glp"]
+[ext_resource type="Script" uid="uid://bacfrrjjgf16t" path="res://Scenes/GameManager.gd" id="1_vy5pj"]
+[ext_resource type="Material" uid="uid://66myenskgqlc" path="res://Materials/Wall/WallMaterial3.tres" id="2_vy5pj"]
+[ext_resource type="Material" uid="uid://lhik34kkxg85" path="res://Materials/Wall/WallMaterial2.tres" id="3_bmxlf"]
+[ext_resource type="Material" uid="uid://d0tjfycwli61l" path="res://Materials/Wall/WallMaterial1.tres" id="4_4kpch"]
+[ext_resource type="Script" uid="uid://cy32h3m7miohq" path="res://Scripts/Rainbow.gd" id="5_grg3l"]
+[ext_resource type="Script" uid="uid://dhw2t38gkgf22" path="res://Scripts/Rotate.gd" id="6_frkhe"]
+[ext_resource type="PackedScene" uid="uid://bmfxfiuu05l21" path="res://Scenes/VRPlayer.tscn" id="7_1p5hy"]
+[ext_resource type="PackedScene" uid="uid://bpblql4rjalr5" path="res://Scenes/IcoCage.tscn" id="8_h1m7h"]
+
+[sub_resource type="Sky" id="Sky_glv2v"]
+sky_material = ExtResource("1_50glp")
+
+[sub_resource type="Environment" id="Environment_uu6xs"]
+background_mode = 2
+sky = SubResource("Sky_glv2v")
+tonemap_mode = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_glv2v"]
+roughness = 0.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_rxg2q"]
+size = Vector2(16, 16)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_r0du0"]
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_cm0pq"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_glv2v"]
+size = Vector2(16, 16)
+
+[sub_resource type="Gradient" id="Gradient_r0du0"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.17120622, 0.4785992, 0.4980545, 0.5252918, 1)
+colors = PackedColorArray(0.8560673, 0.8560673, 0.85606724, 1, 0.24477637, 0.2447764, 0.24477637, 1, 0.16620138, 0.40736878, 0.1809963, 1, 0.97, 0.817225, 0.3589, 1, 0, 0.37254903, 1, 1, 0, 0.22000009, 0.6, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_cm0pq"]
+seed = 5
+frequency = 0.0075
+fractal_octaves = 3
+domain_warp_enabled = true
+domain_warp_amplitude = 17.5
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_fos0i"]
+noise = SubResource("FastNoiseLite_cm0pq")
+color_ramp = SubResource("Gradient_r0du0")
+seamless = true
+in_3d_space = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3dxm6"]
+albedo_texture = SubResource("NoiseTexture2D_fos0i")
+
+[sub_resource type="SphereMesh" id="SphereMesh_r0du0"]
+radius = 1.0
+height = 2.0
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_fos0i"]
+noise_type = 2
+domain_warp_enabled = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_3dxm6"]
+noise = SubResource("FastNoiseLite_fos0i")
+seamless = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lgr22"]
+albedo_texture = SubResource("NoiseTexture2D_3dxm6")
+
+[sub_resource type="SphereMesh" id="SphereMesh_fos0i"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_50glp"]
+size = Vector3(2, 1, 2)
+
+[node name="Main" type="Node3D" node_paths=PackedStringArray("room1", "room2", "player")]
+script = ExtResource("1_vy5pj")
+room1 = NodePath("Room")
+room2 = NodePath("Icos")
+player = NodePath("VRPlayer")
+
+[node name="Enviroment" type="Node" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Enviroment"]
+environment = SubResource("Environment_uu6xs")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Enviroment"]
+transform = Transform3D(-0.28373614, -0.45259324, 0.8453716, 0.715313, 0.4872282, 0.50093514, -0.63860875, 0.7468387, 0.18550158, 0, 35.92949, -0.028636217)
+light_cull_mask = 4294967294
+
+[node name="Room" type="Node3D" parent="."]
+
+[node name="Floor" type="MeshInstance3D" parent="Room"]
+material_override = SubResource("StandardMaterial3D_glv2v")
+mesh = SubResource("PlaneMesh_rxg2q")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Room/Floor"]
+physics_material_override = SubResource("PhysicsMaterial_r0du0")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Room/Floor/StaticBody3D"]
+shape = SubResource("WorldBoundaryShape3D_cm0pq")
+
+[node name="WallFront" type="MeshInstance3D" parent="Room"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, -8)
+mesh = SubResource("QuadMesh_glv2v")
+skeleton = NodePath("../..")
+
+[node name="WallRight" type="MeshInstance3D" parent="Room"]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 8, 8, 0)
+material_override = ExtResource("2_vy5pj")
+mesh = SubResource("QuadMesh_glv2v")
+skeleton = NodePath("../..")
+
+[node name="WallBack" type="MeshInstance3D" parent="Room"]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 8, 8)
+material_override = ExtResource("3_bmxlf")
+mesh = SubResource("QuadMesh_glv2v")
+skeleton = NodePath("../..")
+
+[node name="WallLeft" type="MeshInstance3D" parent="Room"]
+transform = Transform3D(1.3113416e-07, 0, 1, 0, 1, 0, -1, 0, 1.3113416e-07, -8, 8, 0)
+material_override = ExtResource("4_4kpch")
+mesh = SubResource("QuadMesh_glv2v")
+skeleton = NodePath("../..")
+
+[node name="Ceiling" type="MeshInstance3D" parent="Room"]
+transform = Transform3D(-1, 8.742278e-08, 0, -8.742278e-08, -1, 0, 0, 0, 1, 0, 16, 0)
+material_override = SubResource("StandardMaterial3D_glv2v")
+mesh = SubResource("PlaneMesh_rxg2q")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Room"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.09900126, 13.864744, 0.2307018)
+layers = 3
+light_specular = 2.853
+shadow_enabled = true
+shadow_normal_bias = 0.0
+shadow_blur = 2.0
+omni_range = 23.380545
+omni_attenuation = 0.569
+script = ExtResource("5_grg3l")
+
+[node name="InfoText" type="Label3D" parent="Room"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4741306, -7.99)
+pixel_size = 0.01
+text = "Controls
+Change Light : A
+Change Room: B
+Exit Game: X or Y"
+font_size = 64
+
+[node name="Planet" type="MeshInstance3D" parent="Room"]
+transform = Transform3D(-0.16307448, 0, 0.97876275, 0, 1, 0, -0.97876275, 0, -0.16307448, 0, 7, 0)
+material_override = SubResource("StandardMaterial3D_3dxm6")
+mesh = SubResource("SphereMesh_r0du0")
+script = ExtResource("6_frkhe")
+
+[node name="Moon" type="MeshInstance3D" parent="Room/Planet"]
+transform = Transform3D(-0.39810085, 0, -0.8902895, 0, 1, 0, 0.8902895, 0, -0.39810085, 2, 0, 0)
+material_override = SubResource("StandardMaterial3D_lgr22")
+mesh = SubResource("SphereMesh_fos0i")
+script = ExtResource("6_frkhe")
+period = 2.0
+
+[node name="VRPlayer" parent="." node_paths=PackedStringArray("light") instance=ExtResource("7_1p5hy")]
+light = NodePath("../Room/OmniLight3D")
+
+[node name="Icos" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, -25)
+
+[node name="IcoCage" parent="Icos" instance=ExtResource("8_h1m7h")]
+transform = Transform3D(-2.1185255, -4.5091534, 0.25237703, 4.0775824, -2.0295057, -2.0351667, 1.9470282, -0.6595753, 4.557635, 0, 0, 0)
+script = ExtResource("6_frkhe")
+axis = Vector3(0, 0, 1.9)
+
+[node name="IcoCage2" parent="Icos" instance=ExtResource("8_h1m7h")]
+transform = Transform3D(-0.20076363, 2.2678812, 7.1358066, 2.303705, 6.7980423, -2.1031752, -7.1250615, 2.1417327, -0.8812648, 0, 0, 0)
+script = ExtResource("6_frkhe")
+axis = Vector3(0.3, 1, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Icos"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+layers = 3
+mesh = SubResource("BoxMesh_50glp")
+
+[connection signal="change_room" from="VRPlayer" to="." method="_on_vr_player_change_room"]

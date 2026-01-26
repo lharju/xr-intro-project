@@ -1,0 +1,49 @@
+[gd_scene load_steps=6 format=3 uid="uid://bmfxfiuu05l21"]
+
+[ext_resource type="Script" uid="uid://dju21impeobbp" path="res://Scripts/VRPlayer.gd" id="1_r2c84"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fos0i"]
+radius = 0.3
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rxg2q"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_adg5p"]
+size = Vector3(0.1, 0.1, 0.1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uu6xs"]
+albedo_color = Color(0, 0, 1, 1)
+
+[node name="VRPlayer" type="CharacterBody3D"]
+script = ExtResource("1_r2c84")
+
+[node name="PlayerCollission" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_fos0i")
+
+[node name="XROrigin3D" type="XROrigin3D" parent="."]
+current = true
+
+[node name="MainCamera" type="XRCamera3D" parent="XROrigin3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.65, 0)
+near = 0.001
+
+[node name="LeftHand" type="XRController3D" parent="XROrigin3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, -1)
+tracker = &"left_hand"
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="XROrigin3D/LeftHand"]
+layers = 3
+material_override = SubResource("StandardMaterial3D_rxg2q")
+mesh = SubResource("BoxMesh_adg5p")
+
+[node name="RightHand" type="XRController3D" parent="XROrigin3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, -1)
+tracker = &"right_hand"
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="XROrigin3D/RightHand"]
+layers = 3
+material_override = SubResource("StandardMaterial3D_uu6xs")
+mesh = SubResource("BoxMesh_adg5p")
