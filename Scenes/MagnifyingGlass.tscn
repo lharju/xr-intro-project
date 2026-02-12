@@ -1,0 +1,182 @@
+[gd_scene format=3 uid="uid://ety22apm3oi1"]
+
+[ext_resource type="Script" uid="uid://d2qa70r4tfluf" path="res://Scripts/MagnifyingGlass.gd" id="1_eoodm"]
+[ext_resource type="ArrayMesh" uid="uid://0kw5051dlw0f" path="res://Model/new_array_mesh.tres" id="2_73mth"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_73mth"]
+radius = 0.029296875
+height = 0.25906372
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_73mth"]
+height = 0.055
+radius = 0.123046875
+
+[sub_resource type="Shader" id="Shader_73mth"]
+code = "// NOTE: Shader automatically converted from Godot Engine 4.6.stable's StandardMaterial3D.
+
+shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_disabled, diffuse_burley, specular_schlick_ggx, unshaded;
+
+uniform vec4 albedo : source_color;
+uniform sampler2D texture_albedo : source_color, filter_linear_mipmap, repeat_enable;
+uniform ivec2 albedo_texture_size;
+uniform float point_size : hint_range(0.1, 128.0, 0.1);
+
+uniform float roughness : hint_range(0.0, 1.0);
+uniform sampler2D texture_metallic : hint_default_white, filter_linear_mipmap, repeat_enable;
+uniform vec4 metallic_texture_channel;
+uniform sampler2D texture_roughness : hint_roughness_r, filter_linear_mipmap, repeat_enable;
+
+uniform float specular : hint_range(0.0, 1.0, 0.01);
+uniform float metallic : hint_range(0.0, 1.0, 0.01);
+
+uniform vec3 uv1_scale;
+uniform vec3 uv1_offset;
+uniform vec3 uv2_scale;
+uniform vec3 uv2_offset;
+
+void vertex() {
+	UV = UV * uv1_scale.xy + uv1_offset.xy;
+}
+
+void fragment() {
+	vec2 base_uv = UV;
+	if (FRONT_FACING == false)
+		base_uv *= vec2(-1.0, 1.0);
+
+	vec4 albedo_tex = texture(texture_albedo, base_uv);
+	ALBEDO = albedo.rgb * albedo_tex.rgb;
+
+	float metallic_tex = dot(texture(texture_metallic, base_uv), metallic_texture_channel);
+	METALLIC = metallic_tex * metallic;
+	SPECULAR = specular;
+
+	vec4 roughness_texture_channel = vec4(1.0, 0.0, 0.0, 0.0);
+	float roughness_tex = dot(texture(texture_roughness, base_uv), roughness_texture_channel);
+	ROUGHNESS = roughness_tex * roughness;
+}
+"
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_31fs0"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_31fs0"]
+resource_local_to_scene = true
+render_priority = 0
+shader = SubResource("Shader_73mth")
+shader_parameter/albedo = Color(0.79, 0.79, 0.79, 1)
+shader_parameter/texture_albedo = SubResource("ViewportTexture_31fs0")
+shader_parameter/albedo_texture_size = Vector2i(0, 0)
+shader_parameter/point_size = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/metallic_texture_channel = Vector4(1, 0, 0, 0)
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 0.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_73mth"]
+frequency = 0.0433
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_31fs0"]
+noise = SubResource("FastNoiseLite_73mth")
+seamless = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vab5k"]
+albedo_color = Color(0.47, 0.29140002, 0.023500005, 1)
+roughness_texture = SubResource("NoiseTexture2D_31fs0")
+
+[sub_resource type="Curve" id="Curve_m61u3"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.3, 1), 3.3333333, 0.0, 1, 0, Vector2(0.7445141, 1), 0.0, -1.565644, 1, 1, Vector2(1, 0.6), -0.51991034, 0.0, 0, 0]
+point_count = 4
+metadata/_snap_enabled = true
+
+[sub_resource type="TubeTrailMesh" id="TubeTrailMesh_q7a58"]
+radius = 0.015
+sections = 12
+section_length = 0.02
+curve = SubResource("Curve_m61u3")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y02sj"]
+albedo_color = Color(0.8389701, 0.8209799, 0.7917869, 1)
+metallic = 1.0
+roughness = 0.72
+
+[sub_resource type="TorusMesh" id="TorusMesh_73mth"]
+inner_radius = 0.098
+outer_radius = 0.12
+rings = 16
+ring_segments = 8
+
+[sub_resource type="Gradient" id="Gradient_u53cd"]
+colors = PackedColorArray(0.54, 0.54, 0.54, 1, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_rhrs0"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_i2uvf"]
+noise = SubResource("FastNoiseLite_rhrs0")
+color_ramp = SubResource("Gradient_u53cd")
+seamless = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_erfn0"]
+albedo_color = Color(1.0042744, 0.86070156, 0.6149261, 1)
+metallic = 1.0
+metallic_specular = 1.0
+metallic_texture = SubResource("NoiseTexture2D_i2uvf")
+roughness = 0.2
+
+[sub_resource type="SphereMesh" id="SphereMesh_uasap"]
+radius = 0.02
+height = 0.04
+
+[node name="MagnifyingGlass" type="Node3D" unique_id=1346847050]
+script = ExtResource("1_eoodm")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=455791274]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=837078406]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.22319031, 0)
+shape = SubResource("CapsuleShape3D_73mth")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Area3D" unique_id=164131855]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+shape = SubResource("CylinderShape3D_73mth")
+
+[node name="RemoteTransform3D" type="RemoteTransform3D" parent="." unique_id=1667314975]
+remote_path = NodePath("../SubViewport/Camera3D")
+
+[node name="MeshLens" type="MeshInstance3D" parent="." unique_id=11210762]
+transform = Transform3D(0.5, 0, 0, 0, -2.1855694e-08, -0.5, 0, 0.5, -2.1855694e-08, 0, 0, 0)
+layers = 2
+material_override = SubResource("ShaderMaterial_31fs0")
+mesh = ExtResource("2_73mth")
+
+[node name="MeshHandle" type="MeshInstance3D" parent="." unique_id=1137879862]
+transform = Transform3D(1, 0, 0, 0, -1, 8.742278e-08, 0, -8.742278e-08, -1, 0, -0.22838661, 0)
+layers = 2
+material_override = SubResource("StandardMaterial3D_vab5k")
+mesh = SubResource("TubeTrailMesh_q7a58")
+skeleton = NodePath("../MeshRing")
+
+[node name="MeshRing" type="MeshInstance3D" parent="." unique_id=255984743]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+layers = 2
+material_override = SubResource("StandardMaterial3D_y02sj")
+mesh = SubResource("TorusMesh_73mth")
+
+[node name="MeshEndCap" type="MeshInstance3D" parent="." unique_id=1747810695]
+transform = Transform3D(1, 0, 0, 0, -1, 8.742278e-08, 0, -8.742278e-08, -1, 0, -0.32915974, 0)
+layers = 2
+material_override = SubResource("StandardMaterial3D_erfn0")
+mesh = SubResource("SphereMesh_uasap")
+skeleton = NodePath("../MeshHandle")
+
+[node name="SubViewport" type="SubViewport" parent="." unique_id=1033431207]
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport" unique_id=1492649604]
+cull_mask = 1048573
+fov = 26.406784
+size = 0.002
+frustum_offset = Vector2(-0.505, 0)

@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://cng00ijf26mtb"]
+
+[ext_resource type="PackedScene" uid="uid://coy6ayk0vtith" path="res://Model/Circle.glb" id="1_luj6o"]
+[ext_resource type="ArrayMesh" uid="uid://0kw5051dlw0f" path="res://Model/new_array_mesh.tres" id="2_8jdvi"]
+
+[node name="Circle" unique_id=1240933497 instance=ExtResource("1_luj6o")]
+
+[node name="Cylinder" parent="." index="0" unique_id=508586146]
+mesh = ExtResource("2_8jdvi")

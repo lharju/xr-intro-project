@@ -5,6 +5,7 @@ var light_rainbow: bool = false
 
 @onready var left_hand: XRController3D = $XROrigin3D/LeftHand
 @onready var right_hand: XRController3D = $XROrigin3D/RightHand
+@onready var main_camera: XRCamera3D = $XROrigin3D/MainCamera
 
 signal change_room
 

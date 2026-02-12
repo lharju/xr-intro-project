@@ -1,7 +1,7 @@
-[gd_scene load_steps=27 format=3 uid="uid://bp2n8hvvbuf36"]
+[gd_scene format=3 uid="uid://bp2n8hvvbuf36"]
 
 [ext_resource type="Material" uid="uid://bdeqx8k58axy5" path="res://Materials/Sky/SkyMat.tres" id="1_50glp"]
-[ext_resource type="Script" uid="uid://bacfrrjjgf16t" path="res://Scenes/GameManager.gd" id="1_vy5pj"]
+[ext_resource type="Script" uid="uid://bacfrrjjgf16t" path="res://Scripts/GameManager.gd" id="1_vy5pj"]
 [ext_resource type="Material" uid="uid://66myenskgqlc" path="res://Materials/Wall/WallMaterial3.tres" id="2_vy5pj"]
 [ext_resource type="Material" uid="uid://lhik34kkxg85" path="res://Materials/Wall/WallMaterial2.tres" id="3_bmxlf"]
 [ext_resource type="Material" uid="uid://d0tjfycwli61l" path="res://Materials/Wall/WallMaterial1.tres" id="4_4kpch"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://dhw2t38gkgf22" path="res://Scripts/Rotate.gd" id="6_frkhe"]
 [ext_resource type="PackedScene" uid="uid://bmfxfiuu05l21" path="res://Scenes/VRPlayer.tscn" id="7_1p5hy"]
 [ext_resource type="PackedScene" uid="uid://bpblql4rjalr5" path="res://Scenes/IcoCage.tscn" id="8_h1m7h"]
+[ext_resource type="PackedScene" uid="uid://ety22apm3oi1" path="res://Scenes/MagnifyingGlass.tscn" id="10_bmxlf"]
 
 [sub_resource type="Sky" id="Sky_glv2v"]
 sky_material = ExtResource("1_50glp")
@@ -69,65 +70,80 @@ albedo_texture = SubResource("NoiseTexture2D_3dxm6")
 
 [sub_resource type="SphereMesh" id="SphereMesh_fos0i"]
 
+[sub_resource type="BoxMesh" id="BoxMesh_vy5pj"]
+size = Vector3(0.5, 0.5, 0.5)
+
+[sub_resource type="TorusMesh" id="TorusMesh_bmxlf"]
+inner_radius = 0.9
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bmxlf"]
+transparency = 1
+albedo_color = Color(1, 0, 0, 1)
+billboard_mode = 1
+
+[sub_resource type="SphereMesh" id="SphereMesh_bmxlf"]
+radius = 0.1
+height = 0.2
+
 [sub_resource type="BoxMesh" id="BoxMesh_50glp"]
 size = Vector3(2, 1, 2)
 
-[node name="Main" type="Node3D" node_paths=PackedStringArray("room1", "room2", "player")]
+[node name="Main" type="Node3D" unique_id=523609102 node_paths=PackedStringArray("rooms", "player")]
 script = ExtResource("1_vy5pj")
-room1 = NodePath("Room")
-room2 = NodePath("Icos")
+rooms = [NodePath("Room"), NodePath("Icos")]
 player = NodePath("VRPlayer")
 
-[node name="Enviroment" type="Node" parent="."]
+[node name="Enviroment" type="Node" parent="." unique_id=1698235779]
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="Enviroment"]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Enviroment" unique_id=2145170820]
 environment = SubResource("Environment_uu6xs")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Enviroment"]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Enviroment" unique_id=2025862886]
 transform = Transform3D(-0.28373614, -0.45259324, 0.8453716, 0.715313, 0.4872282, 0.50093514, -0.63860875, 0.7468387, 0.18550158, 0, 35.92949, -0.028636217)
 light_cull_mask = 4294967294
 
-[node name="Room" type="Node3D" parent="."]
+[node name="Room" type="Node3D" parent="." unique_id=409597184]
 
-[node name="Floor" type="MeshInstance3D" parent="Room"]
+[node name="Floor" type="MeshInstance3D" parent="Room" unique_id=1239840376]
 material_override = SubResource("StandardMaterial3D_glv2v")
 mesh = SubResource("PlaneMesh_rxg2q")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Room/Floor"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Room/Floor" unique_id=161185097]
 physics_material_override = SubResource("PhysicsMaterial_r0du0")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Room/Floor/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Room/Floor/StaticBody3D" unique_id=704030881]
 shape = SubResource("WorldBoundaryShape3D_cm0pq")
 
-[node name="WallFront" type="MeshInstance3D" parent="Room"]
+[node name="WallFront" type="MeshInstance3D" parent="Room" unique_id=1087971417]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, -8)
+layers = 2
 mesh = SubResource("QuadMesh_glv2v")
 skeleton = NodePath("../..")
 
-[node name="WallRight" type="MeshInstance3D" parent="Room"]
+[node name="WallRight" type="MeshInstance3D" parent="Room" unique_id=973990099]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 8, 8, 0)
 material_override = ExtResource("2_vy5pj")
 mesh = SubResource("QuadMesh_glv2v")
 skeleton = NodePath("../..")
 
-[node name="WallBack" type="MeshInstance3D" parent="Room"]
+[node name="WallBack" type="MeshInstance3D" parent="Room" unique_id=1981251344]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 8, 8)
 material_override = ExtResource("3_bmxlf")
 mesh = SubResource("QuadMesh_glv2v")
 skeleton = NodePath("../..")
 
-[node name="WallLeft" type="MeshInstance3D" parent="Room"]
+[node name="WallLeft" type="MeshInstance3D" parent="Room" unique_id=1664890097]
 transform = Transform3D(1.3113416e-07, 0, 1, 0, 1, 0, -1, 0, 1.3113416e-07, -8, 8, 0)
 material_override = ExtResource("4_4kpch")
 mesh = SubResource("QuadMesh_glv2v")
 skeleton = NodePath("../..")
 
-[node name="Ceiling" type="MeshInstance3D" parent="Room"]
+[node name="Ceiling" type="MeshInstance3D" parent="Room" unique_id=797023440]
 transform = Transform3D(-1, 8.742278e-08, 0, -8.742278e-08, -1, 0, 0, 0, 1, 0, 16, 0)
 material_override = SubResource("StandardMaterial3D_glv2v")
 mesh = SubResource("PlaneMesh_rxg2q")
 
-[node name="OmniLight3D" type="OmniLight3D" parent="Room"]
+[node name="OmniLight3D" type="OmniLight3D" parent="Room" unique_id=340472389]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.09900126, 13.864744, 0.2307018)
 layers = 3
 light_specular = 2.853
@@ -138,47 +154,129 @@ omni_range = 23.380545
 omni_attenuation = 0.569
 script = ExtResource("5_grg3l")
 
-[node name="InfoText" type="Label3D" parent="Room"]
+[node name="InfoText" type="Label3D" parent="Room" unique_id=252414829]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4741306, -7.99)
 pixel_size = 0.01
 text = "Controls
 Change Light : A
 Change Room: B
-Exit Game: X or Y"
+Exit Game: X or Y
+
+Grab Objects: Grib Button"
 font_size = 64
 
-[node name="Planet" type="MeshInstance3D" parent="Room"]
-transform = Transform3D(-0.16307448, 0, 0.97876275, 0, 1, 0, -0.97876275, 0, -0.16307448, 0, 7, 0)
+[node name="Planet" type="MeshInstance3D" parent="Room" unique_id=883624237]
+transform = Transform3D(-0.44037566, 0, -0.86489683, 0, 1, 0, 0.86489683, 0, -0.44037566, 0, 7, 0)
 material_override = SubResource("StandardMaterial3D_3dxm6")
 mesh = SubResource("SphereMesh_r0du0")
 script = ExtResource("6_frkhe")
 
-[node name="Moon" type="MeshInstance3D" parent="Room/Planet"]
-transform = Transform3D(-0.39810085, 0, -0.8902895, 0, 1, 0, 0.8902895, 0, -0.39810085, 2, 0, 0)
+[node name="Moon" type="MeshInstance3D" parent="Room/Planet" unique_id=1284981116]
+transform = Transform3D(0.393948, 0, 0.84240484, 0, 1, 0, -0.84240484, 0, 0.393948, 2, 0, 0)
 material_override = SubResource("StandardMaterial3D_lgr22")
 mesh = SubResource("SphereMesh_fos0i")
 script = ExtResource("6_frkhe")
 period = 2.0
 
-[node name="VRPlayer" parent="." node_paths=PackedStringArray("light") instance=ExtResource("7_1p5hy")]
-light = NodePath("../Room/OmniLight3D")
+[node name="Label3D" type="Label3D" parent="Room" unique_id=461401029]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 7.861267, 2.1257775, 2.0089178)
+layers = 4
+pixel_size = 0.02
+text = "This text is Hidden"
 
-[node name="Icos" type="Node3D" parent="."]
+[node name="HiddenCube" type="MeshInstance3D" parent="Room" unique_id=1260108282]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5134002, -4.463132)
+layers = 4
+mesh = SubResource("BoxMesh_vy5pj")
+skeleton = NodePath("../..")
+
+[node name="HiddenCube" type="MeshInstance3D" parent="Room/HiddenCube" unique_id=945599096]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.02188, -0.1493237, 0.7729554)
+layers = 4
+mesh = SubResource("BoxMesh_vy5pj")
+
+[node name="HiddenCube2" type="MeshInstance3D" parent="Room/HiddenCube" unique_id=1415955437]
+transform = Transform3D(-0.21589433, 0, -0.9764167, 0, 1, 0, 0.9764167, 0, -0.21589433, 5.904731, -0.02152145, 2.8247766)
+layers = 4
+mesh = SubResource("BoxMesh_vy5pj")
+skeleton = NodePath("../..")
+
+[node name="HiddenCube" type="MeshInstance3D" parent="Room/HiddenCube/HiddenCube2" unique_id=1286915479]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.02188, -0.1493237, 0.7729554)
+layers = 4
+mesh = SubResource("BoxMesh_vy5pj")
+
+[node name="HiddenCube2" type="MeshInstance3D" parent="Room/HiddenCube/HiddenCube2" unique_id=161785275]
+transform = Transform3D(-0.21589433, 0, -0.9764168, 0, 1, 0, 0.9764168, 0, -0.21589433, 7.2568007, 0.19402707, 2.525823)
+layers = 4
+mesh = SubResource("BoxMesh_vy5pj")
+skeleton = NodePath("../..")
+
+[node name="HiddenCube" type="MeshInstance3D" parent="Room/HiddenCube/HiddenCube2/HiddenCube2" unique_id=1642626193]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.02188, -0.1493237, 0.7729554)
+layers = 4
+mesh = SubResource("BoxMesh_vy5pj")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Room" unique_id=164088180]
+transform = Transform3D(-0.9628854, 0.26169908, 0, -0.26171845, -0.96286845, 0, 0, 0, 1.0000168, -4.3531566, 1.5696993, 1.8002467)
+layers = 2
+mesh = SubResource("TorusMesh_bmxlf")
+script = ExtResource("6_frkhe")
+axis = Vector3(0, 0, 1)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Room/MeshInstance3D" unique_id=2011586496]
+transform = Transform3D(0.7999868, 0, 0, 0, 0.24358347, -0.76021284, 0, 0.7602075, 0.24358535, 0, 0, 0)
+layers = 2
+mesh = SubResource("TorusMesh_bmxlf")
+script = ExtResource("6_frkhe")
+axis = Vector3(1, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Room/MeshInstance3D/MeshInstance3D" unique_id=1825476787]
+transform = Transform3D(-0.045380905, 0.79698825, 0, -0.79703915, -0.045379274, 0, 0, 0, 0.7999559, 0, 0, 0)
+layers = 2
+mesh = SubResource("TorusMesh_bmxlf")
+script = ExtResource("6_frkhe")
+axis = Vector3(0, 0, 1)
+
+[node name="CPUParticles3D" type="CPUParticles3D" parent="Room/MeshInstance3D/MeshInstance3D/MeshInstance3D" unique_id=707939492]
+transform = Transform3D(-6.835759e-08, -1.5640746, 0, 1.5638394, -6.8367875e-08, 0, 0, 0, 1.5635381, 0, 0, 0)
+layers = 4
+material_override = SubResource("StandardMaterial3D_bmxlf")
+amount = 32
+randomness = 0.27
+mesh = SubResource("SphereMesh_bmxlf")
+particle_flag_align_y = true
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 2.65
+initial_velocity_max = 2.65
+color = Color(1, 0.00999999, 0.00999999, 1)
+hue_variation_min = -1.0
+hue_variation_max = 1.0
+
+[node name="Icos" type="Node3D" parent="." unique_id=38100282]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, -25)
 
-[node name="IcoCage" parent="Icos" instance=ExtResource("8_h1m7h")]
-transform = Transform3D(-2.1185255, -4.5091534, 0.25237703, 4.0775824, -2.0295057, -2.0351667, 1.9470282, -0.6595753, 4.557635, 0, 0, 0)
+[node name="IcoCage" parent="Icos" unique_id=566081053 instance=ExtResource("8_h1m7h")]
+transform = Transform3D(-0.700005, 4.72103, 0.98388577, -4.4319696, -1.0209818, 1.7482322, 1.9470282, -0.6595753, 4.557635, 0, 0, 0)
 script = ExtResource("6_frkhe")
 axis = Vector3(0, 0, 1.9)
 
-[node name="IcoCage2" parent="Icos" instance=ExtResource("8_h1m7h")]
-transform = Transform3D(-0.20076363, 2.2678812, 7.1358066, 2.303705, 6.7980423, -2.1031752, -7.1250615, 2.1417327, -0.8812648, 0, 0, 0)
+[node name="IcoCage2" parent="Icos" unique_id=568290613 instance=ExtResource("8_h1m7h")]
+transform = Transform3D(-2.7463953, 3.068194, -6.134304, 3.0310166, 6.461959, 1.8784721, 6.15193, -1.8263476, -3.6646717, 0, 0, 0)
 script = ExtResource("6_frkhe")
 axis = Vector3(0.3, 1, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Icos"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Icos" unique_id=1943428045]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 layers = 3
 mesh = SubResource("BoxMesh_50glp")
+
+[node name="VRPlayer" parent="." unique_id=1049473810 node_paths=PackedStringArray("light") instance=ExtResource("7_1p5hy")]
+light = NodePath("../Room/OmniLight3D")
+
+[node name="GrabObjects" type="Node3D" parent="." unique_id=182743167]
+
+[node name="MagnifyingGlass" parent="GrabObjects" unique_id=1346847050 instance=ExtResource("10_bmxlf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1777966, -0.74558187)
 
 [connection signal="change_room" from="VRPlayer" to="." method="_on_vr_player_change_room"]
