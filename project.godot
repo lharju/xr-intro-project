@@ -15,7 +15,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="xr-intro"
-run/main_scene="uid://bp2n8hvvbuf36"
+run/main_scene="uid://vqmtk5xc0cfh"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -32,6 +32,10 @@ window/vsync/vsync_mode=0
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/godot-xr-tools/plugin.cfg")
+
+[physics]
+
+3d/physics_engine="Jolt Physics"
 
 [rendering]
 

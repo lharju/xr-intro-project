@@ -42,9 +42,9 @@ func _process(_delta: float) -> void:
 	
 	if grip_input and not grab:
 		# begin grab
-		for area: Area3D in grab_area.get_overlapping_areas():
-			if area.get_parent() is GrabObject:
-				grab = area.get_parent() as GrabObject
+		for object in grab_area.get_overlapping_bodies():
+			if object is GrabObject:
+				grab = object as GrabObject
 				grab.grab(self)
 	elif not grip_input and grab:
 		grab.release(self)

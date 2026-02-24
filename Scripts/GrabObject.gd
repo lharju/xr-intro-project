@@ -1,4 +1,4 @@
-extends Node3D
+extends RigidBody3D
 class_name GrabObject
 
 var grabbed: bool = false
@@ -16,6 +16,7 @@ func grab(node: Node3D) -> void:
 	if not grab_parent:
 		grab_parent = node
 		self.reparent(node, true)
+		self.freeze = true
 	else:
 		grab_mod_parent = node
 		transform_start = node.global_transform
@@ -31,6 +32,7 @@ func release(node: Node3D) -> void:
 		self.reparent(grab_parent, true)
 	else:
 		grab_parent = null
+		self.freeze = false
 		self.reparent(original_parent, true)
 
 func _physics_process(_delta: float) -> void:

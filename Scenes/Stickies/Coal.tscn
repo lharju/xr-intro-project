@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://bu2lep2dpriqn"]
+
+[ext_resource type="Script" uid="uid://ww626ck0ndmf" path="res://Scripts/StickyObject.gd" id="1_kwh1m"]
+[ext_resource type="ArrayMesh" uid="uid://babp8ydv7js2k" path="res://Model/Coal.tres" id="2_40dbj"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qsyw0"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_f2dth"]
+points = PackedVector3Array(-0.894425, -0.4473375, -0.00016659498, -0.00017511845, -1, -0.00016659498, -0.2764873, -0.4473375, 0.8506399, -0.72369975, 0.44714177, 0.5255715, -0.72369975, 0.44714177, -0.5257382, -0.2764873, -0.4473375, -0.85064, 0.72352463, -0.4473375, -0.5257382, 0.72352463, -0.4473375, 0.5255715, 0.27631217, 0.44714177, 0.8506399, -0.00017511845, 1, -0.00016659498, 0.27631217, 0.44714177, -0.85064, 0.894425, 0.44714177, -0.00016659498)
+
+[node name="Coal" type="RigidBody3D" unique_id=1498446119]
+collision_layer = 196612
+collision_mask = 196613
+contact_monitor = true
+max_contacts_reported = 32
+script = ExtResource("1_kwh1m")
+picked_up_layer = 0
+release_mode = 0
+second_hand_grab = 1
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=420612445]
+transform = Transform3D(0.075, 0, 0, 0, 0.075, 0, 0, 0, 0.075, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_qsyw0")
+mesh = ExtResource("2_40dbj")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1255607177]
+transform = Transform3D(0.075, 0, 0, 0, 0.075, 0, 0, 0, 0.075, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_f2dth")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=1896054719]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=965421960]
+transform = Transform3D(0.075, 0, 0, 0, 0.075, 0, 0, 0, 0.075, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_f2dth")
+
+[connection signal="picked_up" from="." to="." method="_on_picked_up"]
+[connection signal="released" from="." to="." method="_on_released"]

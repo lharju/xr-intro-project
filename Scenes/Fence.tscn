@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://ko8ny1n54et2"]
+
+[ext_resource type="PackedScene" uid="uid://b0diuaig1inj0" path="res://Model/Fence.glb" id="1_3hrd4"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3hrd4"]
+cull_mode = 2
+albedo_color = Color(0.2662688, 0.16213295, 0, 1)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_3hrd4"]
+points = PackedVector3Array(0.049999952, 2.4749117, 0.1722141, 0.0034259968, 2.9101863, 0.011800095, -0.049999952, 2.4749117, 0.1722141, 0.049999952, 0, 0.1722141, 0.049999952, 2.4749117, -0.17221414, -0.003435783, 2.9101863, 0.011800095, 0.0034259968, 2.9101863, -0.011833832, -0.049999952, 2.4749117, -0.17221414, -0.049999952, 0, 0.1722141, 0.049999952, 0, -0.17221414, -0.003435783, 2.9101863, -0.011833832, -0.049999952, 0, -0.17221414)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_65fre"]
+points = PackedVector3Array(-0.04371524, 1.431927, -0.04371524, 0.04371524, 1.431927, -0.04371524, -0.04371524, 1.431927, 2.0437152, -0.04371524, 1.7421157, -0.04371524, 0.04371524, 1.7421157, -0.04371524, 0.04371524, 1.431927, 2.0437152, -0.04371524, 1.7421157, 2.0437152, 0.04371524, 1.7421157, 2.0437152)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_j17s3"]
+points = PackedVector3Array(-0.04371524, 1.9373877, -0.04371524, 0.04371524, 1.9373877, -0.04371524, -0.04371524, 1.9373877, 2.0437152, -0.04371524, 2.2475765, -0.04371524, 0.04371524, 2.2475765, -0.04371524, 0.04371524, 1.9373877, 2.0437152, -0.04371524, 2.2475765, 2.0437152, 0.04371524, 2.2475765, 2.0437152)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ljkaa"]
+points = PackedVector3Array(-0.04371524, 1.9373877, -0.04371524, 0.04371524, 1.9373877, -0.04371524, -0.04371524, 1.9373877, 2.0437152, -0.04371524, 2.2475765, -0.04371524, 0.04371524, 2.2475765, -0.04371524, 0.04371524, 1.9373877, 2.0437152, -0.04371524, 2.2475765, 2.0437152, 0.04371524, 2.2475765, 2.0437152)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_34wpg"]
+points = PackedVector3Array(-0.04371524, 1.431927, -0.04371524, 0.04371524, 1.431927, -0.04371524, -0.04371524, 1.431927, 2.0437152, -0.04371524, 1.7421157, -0.04371524, 0.04371524, 1.7421157, -0.04371524, 0.04371524, 1.431927, 2.0437152, -0.04371524, 1.7421157, 2.0437152, 0.04371524, 1.7421157, 2.0437152)
+
+[node name="Fence" unique_id=963065557 instance=ExtResource("1_3hrd4")]
+
+[node name="Pole" parent="." index="0" unique_id=529053871]
+material_override = SubResource("StandardMaterial3D_3hrd4")
+
+[node name="Cube" parent="." index="1" unique_id=1319554855]
+material_override = SubResource("StandardMaterial3D_3hrd4")
+
+[node name="Cube_001" parent="." index="2" unique_id=1835386532]
+material_override = SubResource("StandardMaterial3D_3hrd4")
+
+[node name="Cube_002" parent="." index="3" unique_id=1186356421]
+material_override = SubResource("StandardMaterial3D_3hrd4")
+
+[node name="Cube_003" parent="." index="4" unique_id=2120837988]
+material_override = SubResource("StandardMaterial3D_3hrd4")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="5" unique_id=1821526924]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0" unique_id=1241046433]
+shape = SubResource("ConvexPolygonShape3D_3hrd4")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D" index="1" unique_id=630837345]
+shape = SubResource("ConvexPolygonShape3D_65fre")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="StaticBody3D" index="2" unique_id=2125309891]
+shape = SubResource("ConvexPolygonShape3D_j17s3")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="StaticBody3D" index="3" unique_id=465014112]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.9951082, 0)
+shape = SubResource("ConvexPolygonShape3D_ljkaa")
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="StaticBody3D" index="4" unique_id=1740944801]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.9951082, 0)
+shape = SubResource("ConvexPolygonShape3D_34wpg")

@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://du8upyt4kpmud"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_gjhv8"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_c8tcw"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_45qjy"]
+noise = SubResource("FastNoiseLite_c8tcw")
+
+[node name="Labyrinth" type="Node3D" unique_id=225496296]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1871347486]
+mesh = SubResource("PlaneMesh_gjhv8")
+
+[node name="Decal" type="Decal" parent="." unique_id=1122302781]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0008544922, 0, -0.3466797)
+size = Vector3(0.5, 2, 0.5)
+texture_albedo = SubResource("NoiseTexture2D_45qjy")

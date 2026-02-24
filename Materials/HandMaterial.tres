@@ -1,3 +1,31 @@
-[gd_resource type="StandardMaterial3D" format=3 uid="uid://iqjmubgpdi1k"]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://iqjmubgpdi1k"]
+
+[sub_resource type="Shader" id="Shader_sokf2"]
+code = "// NOTE: Shader automatically converted from Godot Engine 4.6.stable's StandardMaterial3D.
+
+shader_type spatial;
+render_mode blend_mix, depth_draw_always, skip_vertex_transform;
+
+uniform vec4 albedo : source_color;
+
+varying float c;
+
+
+void vertex() {
+    VERTEX = (MODELVIEW_MATRIX * vec4(VERTEX, 1.0)).xyz;
+    NORMAL = normalize((MODELVIEW_MATRIX * vec4(NORMAL, 0.0)).xyz);
+    BINORMAL = normalize((MODELVIEW_MATRIX * vec4(BINORMAL, 0.0)).xyz);
+    TANGENT = normalize((MODELVIEW_MATRIX * vec4(TANGENT, 0.0)).xyz);
+	c = length(VERTEX);
+}
+
+void fragment() {
+	ALBEDO = albedo.rgb;
+	ALPHA = clamp(c * 5.0, 0.0, 1.0);
+}
+"
 
 [resource]
+render_priority = 0
+shader = SubResource("Shader_sokf2")
+shader_parameter/albedo = Color(0.5858467, 1.8049031e-06, 4.3317675e-07, 1)

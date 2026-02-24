@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://bmfxfiuu05l21" path="res://Scenes/VRPlayer.tscn" id="7_1p5hy"]
 [ext_resource type="PackedScene" uid="uid://bpblql4rjalr5" path="res://Scenes/IcoCage.tscn" id="8_h1m7h"]
 [ext_resource type="PackedScene" uid="uid://ety22apm3oi1" path="res://Scenes/MagnifyingGlass.tscn" id="10_bmxlf"]
+[ext_resource type="Script" uid="uid://bfrlpbsqg5lqr" path="res://addons/godot-xr-tools/objects/pickable.gd" id="11_4kpch"]
 
 [sub_resource type="Sky" id="Sky_glv2v"]
 sky_material = ExtResource("1_50glp")
@@ -87,6 +88,13 @@ height = 0.2
 
 [sub_resource type="BoxMesh" id="BoxMesh_50glp"]
 size = Vector3(2, 1, 2)
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_bmxlf"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_4kpch"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_grg3l"]
+points = PackedVector3Array(0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5)
 
 [node name="Main" type="Node3D" unique_id=523609102 node_paths=PackedStringArray("rooms", "player")]
 script = ExtResource("1_vy5pj")
@@ -166,13 +174,13 @@ Grab Objects: Grib Button"
 font_size = 64
 
 [node name="Planet" type="MeshInstance3D" parent="Room" unique_id=883624237]
-transform = Transform3D(-0.44037566, 0, -0.86489683, 0, 1, 0, 0.86489683, 0, -0.44037566, 0, 7, 0)
+transform = Transform3D(0.22999404, 0, -0.94177276, 0, 1, 0, 0.94177276, 0, 0.22999404, 0, 7, 0)
 material_override = SubResource("StandardMaterial3D_3dxm6")
 mesh = SubResource("SphereMesh_r0du0")
 script = ExtResource("6_frkhe")
 
 [node name="Moon" type="MeshInstance3D" parent="Room/Planet" unique_id=1284981116]
-transform = Transform3D(0.393948, 0, 0.84240484, 0, 1, 0, -0.84240484, 0, 0.393948, 2, 0, 0)
+transform = Transform3D(-0.9041792, 0, 0.21354596, 0, 1, 0, -0.21354596, 0, -0.9041792, 2, 0, 0)
 material_override = SubResource("StandardMaterial3D_lgr22")
 mesh = SubResource("SphereMesh_fos0i")
 script = ExtResource("6_frkhe")
@@ -218,21 +226,21 @@ layers = 4
 mesh = SubResource("BoxMesh_vy5pj")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Room" unique_id=164088180]
-transform = Transform3D(-0.9628854, 0.26169908, 0, -0.26171845, -0.96286845, 0, 0, 0, 1.0000168, -4.3531566, 1.5696993, 1.8002467)
+transform = Transform3D(-0.5585749, 0.82540345, 0, -0.825425, -0.5585771, 0, 0, 0, 1.0000168, -4.3531566, 1.5696993, 1.8002467)
 layers = 2
 mesh = SubResource("TorusMesh_bmxlf")
 script = ExtResource("6_frkhe")
 axis = Vector3(0, 0, 1)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Room/MeshInstance3D" unique_id=2011586496]
-transform = Transform3D(0.7999868, 0, 0, 0, 0.24358347, -0.76021284, 0, 0.7602075, 0.24358535, 0, 0, 0)
+transform = Transform3D(0.7999868, 0, 0, 0, -0.31079298, -0.7342818, 0, 0.73429304, -0.31079292, 0, 0, 0)
 layers = 2
 mesh = SubResource("TorusMesh_bmxlf")
 script = ExtResource("6_frkhe")
 axis = Vector3(1, 0, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Room/MeshInstance3D/MeshInstance3D" unique_id=1825476787]
-transform = Transform3D(-0.045380905, 0.79698825, 0, -0.79703915, -0.045379274, 0, 0, 0, 0.7999559, 0, 0, 0)
+transform = Transform3D(0.484854, 0.63301283, 0, -0.633048, 0.4848326, 0, 0, 0, 0.7999559, 0, 0, 0)
 layers = 2
 mesh = SubResource("TorusMesh_bmxlf")
 script = ExtResource("6_frkhe")
@@ -257,12 +265,12 @@ hue_variation_max = 1.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, -25)
 
 [node name="IcoCage" parent="Icos" unique_id=566081053 instance=ExtResource("8_h1m7h")]
-transform = Transform3D(-0.700005, 4.72103, 0.98388577, -4.4319696, -1.0209818, 1.7482322, 1.9470282, -0.6595753, 4.557635, 0, 0, 0)
+transform = Transform3D(2.3571792, 4.2398047, -0.3938957, -3.8117938, 2.3024762, 1.9646546, 1.9470282, -0.6595753, 4.557635, 0, 0, 0)
 script = ExtResource("6_frkhe")
 axis = Vector3(0, 0, 1.9)
 
 [node name="IcoCage2" parent="Icos" unique_id=568290613 instance=ExtResource("8_h1m7h")]
-transform = Transform3D(-2.7463953, 3.068194, -6.134304, 3.0310166, 6.461959, 1.8784721, 6.15193, -1.8263476, -3.6646717, 0, 0, 0)
+transform = Transform3D(1.9065437, 1.6765108, -6.9300103, 1.6345778, 6.8779054, 2.117158, 6.9402394, -2.0879383, 1.4046485, 0, 0, 0)
 script = ExtResource("6_frkhe")
 axis = Vector3(0.3, 1, 0)
 
@@ -277,6 +285,23 @@ light = NodePath("../Room/OmniLight3D")
 [node name="GrabObjects" type="Node3D" parent="." unique_id=182743167]
 
 [node name="MagnifyingGlass" parent="GrabObjects" unique_id=1346847050 instance=ExtResource("10_bmxlf")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1777966, -0.74558187)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7846807, 1.1777966, -0.74558187)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=82619787]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=1852595345]
+shape = SubResource("WorldBoundaryShape3D_bmxlf")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="." unique_id=443543977]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.80395377, -1.2295103)
+collision_layer = 65537
+collision_mask = 65537
+script = ExtResource("11_4kpch")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D" unique_id=745172839]
+mesh = SubResource("BoxMesh_4kpch")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D" unique_id=1987854898]
+shape = SubResource("ConvexPolygonShape3D_grg3l")
 
 [connection signal="change_room" from="VRPlayer" to="." method="_on_vr_player_change_room"]
