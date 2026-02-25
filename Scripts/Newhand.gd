@@ -17,9 +17,9 @@ func _process(_delta: float) -> void:
 	if grip_update and !grip:
 		if global_position.y <= 0.1:
 			var node_to_at: RigidBody3D = snow_ball.instantiate()
-			node_to_at.global_position = self.global_position
 			node_to_at.ball_size = 0.05
 			get_parent().get_parent().add_child(node_to_at)
+			node_to_at.global_position = self.global_position
 			
 	grip = grip_update
 		

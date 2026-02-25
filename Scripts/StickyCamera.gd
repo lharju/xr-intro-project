@@ -6,6 +6,8 @@ class_name StickyCamera
 
 @onready var sub_viewport: SubViewport = $SubViewport
 @onready var audio_stream_player_3d: AudioStreamPlayer3D = $AudioStreamPlayer3D
+@onready var photo_packed: PackedScene = preload("res://Scenes/Stickies/Photo.tscn")
+@onready var marker_3d: Marker3D = $Marker3D
 
 func _ready():
 	contact_monitor = true
@@ -31,6 +33,15 @@ func _on_picked_up(_pickable: Variant) -> void:
 			body.check_for_collision(self)
 
 func take_picture():
+	var photo: Node3D = photo_packed.instantiate()
+	var tex: Image = sub_viewport.get_texture().get_image()
+	for child in photo.get_children():
+		if child is Sprite3D:
+			(child as Sprite3D).texture = ImageTexture.create_from_image(tex)
+	self.add_child(photo)
+	photo.global_position = marker_3d.global_position
+	photo.global_rotation = marker_3d.global_rotation
+	photo.freeze = true
 	print("taking picture")
 	audio_stream_player_3d.play()
-	sub_viewport.get_texture().get_image().save_png("user://" + str(Time.get_unix_time_from_system()) + ".png")
+	tex.save_png("user://" + str(Time.get_unix_time_from_system()) + ".png")

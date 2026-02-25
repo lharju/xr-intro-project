@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://douemmvoag2y4"]
+
+[ext_resource type="Script" uid="uid://ww626ck0ndmf" path="res://Scripts/StickyObject.gd" id="1_1jpsb"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sdl1n"]
+cull_mode = 2
+
+[sub_resource type="QuadMesh" id="QuadMesh_1jpsb"]
+size = Vector2(0.1, 0.1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_r1bg6"]
+size = Vector3(0.1, 0.1, 0.005)
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_rm4xu"]
+
+[node name="Photo" type="RigidBody3D" unique_id=1498446119]
+collision_layer = 196612
+collision_mask = 196613
+contact_monitor = true
+max_contacts_reported = 32
+script = ExtResource("1_1jpsb")
+picked_up_layer = 0
+release_mode = 0
+second_hand_grab = 1
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=420612445]
+material_override = SubResource("StandardMaterial3D_sdl1n")
+mesh = SubResource("QuadMesh_1jpsb")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=1896054719]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1315194186]
+shape = SubResource("BoxShape3D_r1bg6")
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=738946027]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.001)
+pixel_size = 0.0001758
+texture = SubResource("NoiseTexture2D_rm4xu")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=217473403]
+shape = SubResource("BoxShape3D_r1bg6")
+
+[connection signal="picked_up" from="." to="." method="_on_picked_up"]
+[connection signal="released" from="." to="." method="_on_released"]

@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://c0ibipyrld4ly"]
+
+[ext_resource type="PackedScene" uid="uid://kitmv1qv2pqr" path="res://Model/House.glb" id="1_xm50o"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xm50o"]
+albedo_color = Color(0.25843206, 0.3585588, 0.42845848, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wwt5c"]
+albedo_color = Color(0.37705678, 0.83645016, 0.9261074, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1acc2"]
+albedo_color = Color(0.31431612, 0.31431612, 0.3143161, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y1gf4"]
+albedo_color = Color(1, 0.14999998, 0.14999998, 1)
+
+[node name="House" unique_id=1937001409 instance=ExtResource("1_xm50o")]
+
+[node name="Cube" parent="." index="0" unique_id=870544688]
+material_override = SubResource("StandardMaterial3D_xm50o")
+
+[node name="Cube_001" parent="." index="1" unique_id=2082005175]
+material_override = SubResource("StandardMaterial3D_wwt5c")
+
+[node name="Cube_002" parent="." index="2" unique_id=488744267]
+material_override = SubResource("StandardMaterial3D_1acc2")
+
+[node name="Cube_003" parent="." index="3" unique_id=898886307]
+material_override = SubResource("StandardMaterial3D_y1gf4")

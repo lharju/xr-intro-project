@@ -115,6 +115,15 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_fqgka")
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pv53b"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_4ww33"]
+top_radius = 0.01
+bottom_radius = 0.01
+height = 0.01
+radial_segments = 16
+
 [node name="Camera" type="RigidBody3D" unique_id=1498446119]
 collision_layer = 196612
 collision_mask = 196613
@@ -176,6 +185,15 @@ stream = ExtResource("2_r6r35")
 unit_size = 100.0
 max_distance = 4096.0
 bus = &"SFX"
+
+[node name="Marker3D" type="Marker3D" parent="." unique_id=594924450]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.08836344, 0.0140460655)
+gizmo_extents = 0.22
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1487354915]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.04381422, 0.042542882, 0)
+material_override = SubResource("StandardMaterial3D_pv53b")
+mesh = SubResource("CylinderMesh_4ww33")
 
 [connection signal="picked_up" from="." to="." method="_on_picked_up"]
 [connection signal="released" from="." to="." method="_on_released"]

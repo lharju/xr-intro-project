@@ -39,5 +39,7 @@ collision_mask = 4
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=2020695502]
 shape = SubResource("ConvexPolygonShape3D_ow4a2")
 
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]
 [connection signal="picked_up" from="." to="." method="_on_picked_up"]
 [connection signal="released" from="." to="." method="_on_released"]
